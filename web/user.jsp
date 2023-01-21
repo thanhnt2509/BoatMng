@@ -40,7 +40,7 @@
                 </form>
             </c:when>
             <c:otherwise>
-                <c:set var="error" scope="request" value="You need to login to access"/>
+                <c:set var="noti" scope="request" value="You need to login to access"/>
                 <jsp:forward page="login.jsp"/>
             </c:otherwise>
         </c:choose>

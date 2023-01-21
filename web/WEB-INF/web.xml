@@ -16,6 +16,10 @@
         <servlet-name>makeReserveServlet</servlet-name>
         <servlet-class>myServlet.makeReserveServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>registerServlet</servlet-name>
+        <servlet-class>myServlet.registerServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>loginServlet</servlet-name>
         <url-pattern>/loginServlet</url-pattern>
@@ -31,6 +35,10 @@
     <servlet-mapping>
         <servlet-name>makeReserveServlet</servlet-name>
         <url-pattern>/makeReserveServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>registerServlet</servlet-name>
+        <url-pattern>/registerServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

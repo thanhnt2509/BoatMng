@@ -32,7 +32,7 @@
                     </table>
                     <input type="submit" name="action" value="login"/>
                 </form>
-                <p>${requestScope.error}</p>
+                <p>${requestScope.noti}</p>
             </c:otherwise>
         </c:choose>
     </body>

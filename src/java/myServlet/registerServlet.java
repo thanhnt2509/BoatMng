@@ -6,20 +6,18 @@
 package myServlet;
 
 import dao.SailorDAO;
-import dto.Sailors;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Legion
  */
-public class loginServlet extends HttpServlet {
+public class registerServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,15 +33,19 @@ public class loginServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             String sName = request.getParameter("txtname");
-            String password = request.getParameter("txtpass");
-            Sailors sailor = SailorDAO.login(sName, password);
-            if (sailor != null){
-                HttpSession session = request.getSession();
-                session.setAttribute("loginedUser", sailor);
-                request.getRequestDispatcher("user.jsp").forward(request, response);
-            }else{
-                request.setAttribute("noti", "Incorrect UserID or password");
+            String pass = request.getParameter("txtpass");
+            String rating = request.getParameter("txtrate");
+            String age = request.getParameter("txtage");
+            
+            boolean result = SailorDAO.register(sName, pass, rating, age);
+            if (result){
+                //if success, redirect to login page to login
+                request.setAttribute("noti", "Register success, login to use");
                 request.getRequestDispatcher("login.jsp").forward(request, response);
+            }else{
+                //else not success, show error
+                request.setAttribute("noti", "Register failed, try again");
+                request.getRequestDispatcher("register.jsp").forward(request, response);
             }
         }catch(Exception e){
         }

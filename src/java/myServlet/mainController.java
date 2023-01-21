@@ -43,6 +43,9 @@ public class mainController extends HttpServlet {
                 case "makeReserve":
                     url = "makeReserveServlet";
                     break;
+                case "register":
+                    url = "registerServlet";
+                    break;
                     
                     
             }

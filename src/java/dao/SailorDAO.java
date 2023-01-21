@@ -38,4 +38,22 @@ public class SailorDAO {
         }
         return sailor;
     }
+    public static boolean register(String username, String pass, String rating, String age) throws Exception {
+        boolean result = false;
+        Connection conn = DBUtils.makeConnection();
+        if (conn != null) {
+            String sql = "insert into [dbo].[sailors]([sname],[password],[rating],[age])\n"
+                    + "values(?,?,?,?)";
+            PreparedStatement pst = conn.prepareStatement(sql);
+            pst.setString(1, username);
+            pst.setString(2, pass);
+            pst.setString(3, rating);
+            pst.setString(4, age);
+            
+            result = pst.executeUpdate() == 1;
+            
+            conn.close();
+        }
+        return result;
+    }
 }
