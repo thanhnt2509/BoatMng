@@ -13,16 +13,27 @@
         <title>Login Page</title>
     </head>
     <body>
-        <c:if test="${sessionScope.loginedUser != null}">
-            <jsp:forward page="user.jsp"/>
-        </c:if>
-        <form action="mainController" method="post">
-            Name: <input type="text" name="txtname" placeholder="Input your name" value="${param.txtname}">
-            <br/>
-            Password: <input type="password" name="txtpass" placeholder="Input password" value="${param.txtpass}">
-            <input type="submit" name="action" value="login"/>
-            <br/>
-            ${requestScope.error}
-        </form>
+        <c:choose>
+            <c:when test="${sessionScope.loginedUser != null}">
+                <c:redirect url="user.jsp"/>
+            </c:when>
+            <c:otherwise>
+                <p>Don't have an account? <a href="register.jsp">Register</a> Now!</p>
+                <form action="mainController" method="post">
+                    <table>
+                        <tr>
+                            <th>User Name</th>
+                            <td><input type="text" name="txtname" value="${param.txtname}"></td>
+                        </tr>
+                        <tr>
+                            <th>Password</th>
+                            <td><input type="password" name="txtpass" value="${param.txtpass}"></td>
+                        </tr>
+                    </table>
+                    <input type="submit" name="action" value="login"/>
+                </form>
+                <p>${requestScope.error}</p>
+            </c:otherwise>
+        </c:choose>
     </body>
 </html>

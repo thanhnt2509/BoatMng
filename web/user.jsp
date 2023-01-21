@@ -14,22 +14,35 @@
         <title>User Page</title>
     </head>
     <body>
-        <c:if test="${sessionScope.loginedUser == null}">
-            <c:set scope="request" var="error" value="You have to login to access this page"/>
-            <jsp:forward page="login.jsp"/>
-        </c:if>
-        <h1>Welcome ${sessionScope.loginedUser.sName}</h1>
-        <form action="mainController" method="post"><input type="submit" name="action" value="logout"/></form>
-        <form action="mainController" method="post">
-            Sailor ID: <input type="number" name="sid" required="" value="${param.sid}"/>
-            <br/>
-            Boat ID: <input type="number" name="bid" required="" value="${param.bid}"/>
-            <br/>
-            Date: <input type="date" name="day" required="" value="${param.day}"/>
-            <br/>
-            <input type="submit" name="action" value="makeReserve"/>
-            <br/>
-            ${requestScope.noti}
-        </form>
+        <c:choose>
+            <c:when test="${sessionScope.loginedUser != null}">
+                <h1>Hello ${sessionScope.loginedUser.sName}</h1>
+                <form action="mainController">
+                    <input type="submit" name="action" value="logout"/>
+                </form>
+                <form action="mainController" method="post">
+                    <table>
+                        <tr>
+                            <th>Sailor ID</th>
+                            <td><input type="number" name="sid" required="" value="${param.sid}"/></td>
+                        </tr>
+                        <tr>
+                            <th>Boat ID</th>
+                            <td><input type="number" name="bid" required="" value="${param.bid}"/></td>
+                        </tr>
+                        <tr>
+                            <th>Date</th>
+                            <td><input type="date" name="day" required="" value="${param.day}"/></td>
+                        </tr>
+                    </table>
+                    <input type="submit" name="action" value="makeReserve"/>
+                    <p>${requestScope.noti}</p>
+                </form>
+            </c:when>
+            <c:otherwise>
+                <c:set var="error" scope="request" value="You need to login to access"/>
+                <jsp:forward page="login.jsp"/>
+            </c:otherwise>
+        </c:choose>
     </body>
 </html>
